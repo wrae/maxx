@@ -9,7 +9,7 @@ import Pricing from "./pages/Pricing";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import rawLogoUrl from "./assets/logo-original.jpg";
-function hexToRgb(hex){ const v=hex.replace("#",""); return { r:parseInt(v.slice(0,2),16), g:parseInt(v.slice(2,4),16), b:parseInt(v.slice(4,6),16)}; }
+function hexToRgb(hex: string){ const v=hex.replace("#",""); return { r:parseInt(v.slice(0,2),16), g:parseInt(v.slice(2,4),16), b:parseInt(v.slice(4,6),16)}; }
 export function useTransparentLogo(targetHex = "#0C2C3E", tolerance = 24){
   const [dataUrl, setDataUrl] = React.useState<string | null>(null);
   React.useEffect(() => {
@@ -43,7 +43,7 @@ export function useTransparentLogo(targetHex = "#0C2C3E", tolerance = 24){
    ========================= */
 const IMAGES = [
   "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1581579188871-45ea61f2a0c8?q=80&w=1600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=1600&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=1600&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=1600&auto=format&fit=crop",
 ];
@@ -307,13 +307,13 @@ function HeaderCarousel(
       <div className="absolute right-4 top-4 z-50 flex items-center gap-2 pointer-events-auto">
         <button
           onClick={onToggleLang}
-          className="rounded-xl border border-white/60 bg-white/10 px-3 py-1.5 text-sm text-white backdrop-blur hover:bg-white/20"
+          className="rounded-xl border border-white/0 bg-white/95 px-3 py-1.5 text-sm text-gray-900 shadow"
           aria-label="Toggle language"
         >
           {lang === "en" ? "ES" : "EN"}
         </button>
         <button
-          className="inline-flex items-center justify-center rounded-xl border border-white/60 bg-white/10 p-2 text-white backdrop-blur active:scale-95 md:hidden"
+          className="inline-flex items-center justify-center rounded-xl border border-white/0 bg-white/95 p-2 text-gray-900 shadow active:scale-95 md:hidden"
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -329,11 +329,14 @@ function HeaderCarousel(
           )}
         </button>
       </div>
+      {/* top-left hero logo (transparent) */}
+      <div className="absolute left-[-6px] top-[-6px] md:left-[-8px] md:top-[-8px] z-40 pointer-events-none" style={{ transform: "translate(-22px, -10px)", clipPath: "inset(6px 0 0 18px)" }}>
+        <img src={heroLogo || (rawLogoUrl as string)} alt="MAXX Cleaning logo" className="h-52 w-auto md:h-60 md:drop-shadow" />
+      </div>
+
 
       <div className="absolute inset-x-0 bottom-6 sm:bottom-8 mx-auto max-w-6xl px-4 text-white">
-        <div className="flex flex-col items-start gap-3">
-          <img src={heroLogo || (rawLogoUrl as string)} alt="MAXX logo" className="h-36 md:h-40 w-auto object-contain drop-shadow" />
-          <p className="max-w-xl text-base sm:text-lg md:text-xl opacity-90">{t("hero.subtitle")}</p>
+        <div className="flex flex-col items-start gap-3"><p className="max-w-xl text-base sm:text-lg md:text-xl opacity-90">{t("hero.subtitle")}</p>
           <Link to="/contact" className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-5 py-3 text-gray-900 shadow hover:bg-white">
             {t("hero.cta")} →
           </Link>
@@ -376,16 +379,16 @@ function MobileMenu({
       {/* backdrop */}
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
       {/* panel */}
-      <div className="absolute right-3 top-[72px] left-3 rounded-2xl shadow-lg ring-1 ring-black/5" style={{background:"#0C2C3E"}}>
-        <ul className="px-2 py-2">
+      <div className="absolute right-3 top-[72px] w-[22rem] max-w-[90vw] rounded-2xl shadow-lg ring-1 ring-black/5" style={{background:"#0C2C3E"}}>
+        <ul className="px-2 py-2 space-y-3">
           {NAV.map((n) => (
             <li key={n.to}>
               <NavLink
                 to={n.to}
                 className={({ isActive }) => (
                 isActive
-                  ? "rounded-xl px-3 py-2 text-sm font-semibold bg-amber-300 text-black"
-                  : "rounded-xl px-3 py-2 text-sm font-semibold text-white hover:text-gray-300"
+                  ? "rounded-xl px-3 py-2 text-sm font-semibold bg-amber-400 text-black ring-2 ring-white/30"
+                  : "rounded-xl px-3 py-2 text-sm font-semibold text-gray-200 hover:text-white"
               )}
               >
                 {t(`nav.${n.key}`)}
@@ -402,20 +405,20 @@ function Navbar(
   { lang, onToggleLang, t }: { lang: Lang; onToggleLang: () => void; t: ReturnType<typeof tFactory> }
 ) {
   return (
-    <nav className="sticky top-0 z-30 shadow" style={{background:NAVY}} aria-label="Main">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link to="/" className="flex items-center gap-2"><span className="font-extrabold tracking-tight text-white">MAXX</span></Link>
+    <nav className="sticky top-0 z-30 h-0 md:h-auto bg-transparent md:bg-[#0C2C3E] border-0" aria-label="Main">
+      <div className="mx-auto hidden md:flex max-w-6xl items-center justify-center px-4 py-2">
+        
         {/* desktop menu */}
-        <ul className="hidden gap-4 md:flex">
+        <ul className="hidden md:flex gap-6 justify-center">
           {NAV.map((n) => (
             <li key={n.to}>
               <NavLink
                 to={n.to}
-                className={({ isActive }) =>
-                  `rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive ? "text-indigo-700 bg-indigo-50" : "text-gray-700 hover:text-gray-900"
-                  }`
-                }
+                className={({ isActive }) => (
+                  isActive
+                    ? "rounded-xl px-3 py-2 text-sm font-semibold bg-amber-400 text-black ring-2 ring-white/40 shadow-sm"
+                    : "rounded-xl px-3 py-2 text-sm font-medium text-gray-200 hover:text-white"
+                )}
               >
                 {t(`nav.${n.key}`)}
               </NavLink>
@@ -448,12 +451,13 @@ function Layout(
   { children, t, lang, setLang }: { children: React.ReactNode; t: ReturnType<typeof tFactory>; lang: Lang; setLang: (l: Lang) => void; }
 ) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const transLogo = useTransparentLogo(NAVY, 24);
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-3 focus:py-2 focus:shadow">
         Skip to content
       </a>
-
       <HeaderCarousel
         t={t}
         lang={lang}
@@ -465,15 +469,12 @@ function Layout(
       <Navbar lang={lang} onToggleLang={() => setLang(lang === "en" ? "es" : "en")} t={t} />
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} t={t} />
 
-      <div className="mx-auto max-w-6xl px-4"><ScrollToMain /></div>
+      <div className="mx-auto max-w-6xl px-4 -mt-4"><ScrollToMain /></div>
       <div className="contents">{children}</div>
 
       <footer className="mt-12 border-t" style={{background:"#0C2C3E"}}>
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 md:flex-row">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-lg bg-indigo-600" />
-            <span className="font-extrabold tracking-tight">MAXX</span>
-          </Link>
+          
           <p className="text-sm" style={{color:"#DDE6EC"}}>© {new Date().getFullYear()} MAXX Cleaning. All rights reserved.</p>
           <Link to="/contact" className="text-sm font-medium hover:underline" style={{color:"#D5B67A"}}>{t("footer.cta")}</Link>
         </div>
@@ -489,6 +490,8 @@ function Layout(
    ========================= */
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
+  const transLogo = useTransparentLogo(NAVY, 24);
+
   const t = useMemo(() => tFactory(lang), [lang]);
 
   return (
