@@ -43,7 +43,7 @@ export function useTransparentLogo(targetHex = "#0C2C3E", tolerance = 24){
    ========================= */
 const IMAGES = [
   "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=1600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1600&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=1600&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=1600&auto=format&fit=crop",
 ];
@@ -336,7 +336,7 @@ function HeaderCarousel(
 
 
       <div className="absolute inset-x-0 bottom-6 sm:bottom-8 mx-auto max-w-6xl px-4 text-white">
-        <div className="flex flex-col items-start gap-3"><p className="max-w-xl text-base sm:text-lg md:text-xl opacity-90">{t("hero.subtitle")}</p>
+        <div className="flex flex-col items-start gap-2"><p className="max-w-xl text-base sm:text-lg md:text-xl opacity-90">{t("hero.subtitle")}</p>
           <Link to="/contact" className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-5 py-3 text-gray-900 shadow hover:bg-white">
             {t("hero.cta")} →
           </Link>
@@ -379,16 +379,16 @@ function MobileMenu({
       {/* backdrop */}
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
       {/* panel */}
-      <div className="absolute right-3 top-[72px] w-[22rem] max-w-[90vw] rounded-2xl shadow-lg ring-1 ring-black/5" style={{background:"#0C2C3E"}}>
-        <ul className="px-2 py-2 space-y-3">
+      <div className="absolute right-3 top-[72px] w-[15rem] max-w-[70vw] rounded-2xl shadow-lg ring-1 ring-black/5" style={{background:"#0C2C3E"}}>
+        <ul className="px-2 py-1 space-y-1">
           {NAV.map((n) => (
             <li key={n.to}>
               <NavLink
                 to={n.to}
                 className={({ isActive }) => (
                 isActive
-                  ? "rounded-xl px-3 py-2 text-sm font-semibold bg-amber-400 text-black ring-2 ring-white/30"
-                  : "rounded-xl px-3 py-2 text-sm font-semibold text-gray-200 hover:text-white"
+                  ? "rounded-xl px-3 py-1 text-sm font-semibold bg-amber-400 text-black ring-2 ring-white/30"
+                  : "rounded-xl px-3 py-1 text-sm font-semibold text-gray-200 hover:text-white"
               )}
               >
                 {t(`nav.${n.key}`)}
