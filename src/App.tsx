@@ -331,7 +331,7 @@ function HeaderCarousel(
       </div>
       {/* top-left hero logo (transparent) */}
       <div className="absolute left-[-6px] top-[-6px] md:left-[-8px] md:top-[-8px] z-40 pointer-events-none" style={{ transform: "translate(-22px, -10px)", clipPath: "inset(6px 0 0 18px)" }}>
-        <img src={heroLogo || (rawLogoUrl as string)} alt="MAXX Cleaning logo" className="h-52 w-auto md:h-60 md:drop-shadow" />
+        <img src={heroLogo || (rawLogoUrl as string)} alt="MAXX Cleaning logo" className="h-40 w-auto sm:h-48 md:h-60 md:drop-shadow" />
       </div>
 
 
